@@ -10,6 +10,10 @@ const TaskScheme = new mongoose.Schema(
         },
         fecha: {
             type: String,
+        },
+        status: {
+            type:["pending","finished"],
+            default: "pending"
         }
     },
     {

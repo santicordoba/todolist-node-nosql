@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {validatorCreateItem} = require("../validators/tasks");
+const {validatorCreateItem} = require("../validators/users");
 
-const { getItems, createItem } = require("../controllers/tasks");
+const { getItems, createItem } = require("../controllers/users");
 
 router.get("/", getItems);
 
