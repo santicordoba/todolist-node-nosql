@@ -1,19 +1,56 @@
 const {tasksModel} = require("../models");
+const { matchedData } = require("express-validator");
+const { handleHttpError } = require("../utils/handleError");
 
 const getItems = async (req, res) => {
-    const data = await tasksModel.find({});
-    res.send({data});
+    try{
+        const data = await tasksModel.find({});
+        res.send({data});
+    } catch(e){
+        handleHttpError(res, "ERROR_GET_ALL_ITEMS")
+    }
 };
 
-const getItem = (req, res) => {};
+const getItem = async (req, res) => {
+    try{
+        req = matchedData(req);
+        const {id} = req;
+        const data = await tasksModel.findById(id);
+        res.send({data});
+    } catch(e){
+        handleHttpError(res, "ERROR_GET_ITEM")
+    }
+};
 
 const createItem = async (req, res) => {
-    const {body} = req;
-    console.log(body);
-    const data = await tasksModel.create(body);
-    res.send({data});
+    try{
+        req = matchedData(req);
+        const {body} = req;
+        const data = await tasksModel.create(body);
+        res.send({data});   
+    } catch(e){
+        handleHttpError(res, "ERROR_ADD_ITEM")
+    }
 };
-const updateItem = (req, res) => {};
-const deleteItem = (req, res) => {};
+const updateItem = async (req, res) => {
+    try{
+        req = matchedData(req);
+        const {id, ...body} = req;
+        const data = await tasksModel.findByIdAndUpdate(id, body, {new:true});
+        res.send({data})
+    } catch(e){
+        handleHttpError(res, "ERROR_UPDATE_ITEM")
+    }
+};
+const deleteItem = async (req, res) => {
+    try{
+        req = matchedData(req);
+        const {id} = req;
+        const data = await tasksModel.delete({_id:id});
+        res.send({data})
+    } catch(e){
+        handleHttpError(res, "ERROR_DELETE_ITEM")
+    }
+};
 
-module.exports = {getItems,getItem,createItem,updateItem,deleteItem}
+module.exports = {getItems,getItem,createItem,updateItem,deleteItem};
