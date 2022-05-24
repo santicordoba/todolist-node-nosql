@@ -15,6 +15,9 @@ const TaskScheme = new mongoose.Schema(
         status: {
             type:["pending","finished"],
             default: "pending"
+        },
+        categoryId: {
+            type: mongoose.Types.ObjectId,
         }
     },
     {
@@ -22,6 +25,45 @@ const TaskScheme = new mongoose.Schema(
         versionKey:false,
     },
 );
+
+TaskScheme.statics.findAllData = function () {
+    const joinData = this.aggregate([
+        {
+            $lookup: {
+                from: "categorys",
+                localField: "categoryId",
+                foreignField: "_id",
+                as: "category",
+            },
+        },
+        {
+            $unwind: "$category",
+        },
+    ]);
+    return joinData;
+}
+
+TaskScheme.statics.findOneData = function (id) {
+    const joinData = this.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(id),
+            },
+        },
+        {
+            $lookup: {
+                from: "categorys",
+                localField: "categoryId",
+                foreignField: "_id",
+                as: "category",
+            },
+        },
+        {
+            $unwind: "$category",
+        },
+    ]);
+    return joinData;
+}
 
 TaskScheme.plugin(mongooseDelete, {overrideMethods: "all"})
 module.exports = mongoose.model("tasks", TaskScheme);

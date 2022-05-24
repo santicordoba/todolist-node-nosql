@@ -21,6 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "mongoose-delete": "^0.5.4",
-    "morgan-body": "^2.6.6"
+    "morgan-body": "^2.6.6",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
   }
 }

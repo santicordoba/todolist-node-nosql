@@ -9,6 +9,9 @@ const morganBody = require('morgan-body');
 app.use(cors());
 app.use(express.json());
 
+const swaggerUi = require('swagger-ui-express');
+const openApiConfig = require('./docs/swagger.js');
+
 morganBody(app,{
     noColors:true,
     stream: loggerStream,
@@ -19,6 +22,15 @@ morganBody(app,{
 
 const port = process.env.PORT;
 
+/**
+ * Definir ruta de documentación
+ */
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(openApiConfig));
+
+
+/**
+ * Invocacion de las rutas
+ */
 app.use("/api", require("./routes"));
 
 app.listen(port, ()=>{

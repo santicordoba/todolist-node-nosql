@@ -4,7 +4,7 @@ const { handleHttpError } = require("../utils/handleError");
 
 const getItems = async (req, res) => {
     try{
-        const data = await tasksModel.find({});
+        const data = await tasksModel.findAllData({});
         res.send({data});
     } catch(e){
         handleHttpError(res, "ERROR_GET_ALL_ITEMS")
@@ -15,7 +15,7 @@ const getItem = async (req, res) => {
     try{
         req = matchedData(req);
         const {id} = req;
-        const data = await tasksModel.findById(id);
+        const data = await tasksModel.findOneData(id);
         res.send({data});
     } catch(e){
         handleHttpError(res, "ERROR_GET_ITEM")
@@ -25,8 +25,8 @@ const getItem = async (req, res) => {
 const createItem = async (req, res) => {
     try{
         req = matchedData(req);
-        const {body} = req;
-        const data = await tasksModel.create(body);
+        console.log(req)
+        const data = await tasksModel.create(req);
         res.send({data});   
     } catch(e){
         handleHttpError(res, "ERROR_ADD_ITEM")
