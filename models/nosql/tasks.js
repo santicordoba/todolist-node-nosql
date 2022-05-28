@@ -18,6 +18,9 @@ const TaskScheme = new mongoose.Schema(
         },
         categoryId: {
             type: mongoose.Types.ObjectId,
+        },
+        userId: {
+            type: mongoose.Types.ObjectId,
         }
     },
     {
@@ -57,6 +60,9 @@ TaskScheme.statics.findOneData = function (id) {
                 foreignField: "_id",
                 as: "category",
             },
+        },
+        {
+            $unwind: "$category",
         },
         {
             $unwind: "$category",

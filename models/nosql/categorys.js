@@ -8,6 +8,9 @@ const CategoryScheme = new mongoose.Schema(
         },
         importance: {
             type: Number,
+        },
+        userId: {
+            type: mongoose.Types.ObjectId,
         }
     },
     {

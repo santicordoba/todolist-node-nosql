@@ -20,12 +20,14 @@ morganBody(app,{
     }
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 /**
  * Definir ruta de documentación
  */
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(openApiConfig));
+
+
 
 
 /**

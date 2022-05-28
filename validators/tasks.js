@@ -6,6 +6,7 @@ const validatorCreateItem = [
     check("description").exists().notEmpty(),
     check("fecha").exists().notEmpty(),
     check("categoryId").exists().notEmpty(),
+    check("userId").exists().notEmpty(),
     (req, res, next) => {
         return validateResults(req, res, next);
     }

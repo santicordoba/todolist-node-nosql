@@ -15,7 +15,9 @@ const getItem = async (req, res) => {
     try{
         req = matchedData(req);
         const {id} = req;
+        console.log(id);
         const data = await tasksModel.findOneData(id);
+        console.log(data)
         res.send({data});
     } catch(e){
         handleHttpError(res, "ERROR_GET_ITEM")

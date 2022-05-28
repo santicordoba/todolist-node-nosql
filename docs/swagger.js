@@ -26,7 +26,7 @@ const swaggerDefinition = {
         schemas: {
             categorys:{
                 type:"object",
-                required:["name","importance"],
+                required:["name","importance","userId"],
                 properties:{
                     name:{
                         type:"string",
@@ -34,11 +34,14 @@ const swaggerDefinition = {
                     importance:{
                         type:"integer",
                     },
+                    userId:{
+                        type:"string",
+                    },
                 },
             },
             tasks:{
                 type:"object",
-                required:["title","description","fecha","categoryId"],
+                required:["title","description","fecha","categoryId", "userId"],
                 properties:{
                     title: {
                         type:"string",
@@ -50,6 +53,9 @@ const swaggerDefinition = {
                         type:"string",
                     },
                     categoryId:{
+                        type:"string",
+                    },
+                    userId:{
                         type:"string",
                     },
                 },
