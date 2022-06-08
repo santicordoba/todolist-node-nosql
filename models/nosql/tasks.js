@@ -29,8 +29,13 @@ const TaskScheme = new mongoose.Schema(
     },
 );
 
-TaskScheme.statics.findAllData = function () {
+TaskScheme.statics.findAllData = function (idUser) {
     const joinData = this.aggregate([
+        {
+            $match: {
+                userId: mongoose.Types.ObjectId(idUser)
+            }
+        },
         {
             $lookup: {
                 from: "categorys",
