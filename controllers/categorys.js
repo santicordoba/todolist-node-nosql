@@ -35,7 +35,6 @@ const createItem = async (req, res) => {
 const updateItem = async (req, res) => {
     try{
         const {id, ...body} = matchedData(req);
-        console.log(id);
         const data = await categorysModel.findByIdAndUpdate(id, body, {new: true});
         res.send({data});
     } catch(e){

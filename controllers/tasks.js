@@ -4,7 +4,7 @@ const { handleHttpError } = require("../utils/handleError");
 
 const getItems = async (req, res) => {
     try{
-        const data = await tasksModel.findAllData(req.user.id);
+        const data = await tasksModel.findAllData(req.user.id).sort({fecha:1});
         res.send({data});
     } catch(e){
         handleHttpError(res, "ERROR_GET_ALL_ITEMS")
