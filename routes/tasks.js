@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {validatorCreateItem, validatorGetItem} = require("../validators/tasks");
-const { getItems, getItem, createItem, updateItem, deleteItem } = require("../controllers/tasks");
+const { getItems, getItem, createItem, updateItem, deleteItem, toggleStatus } = require("../controllers/tasks");
 const authMiddleware = require("../middleware/session");
 
 /**
@@ -78,8 +78,8 @@ router.get("/:id", authMiddleware, validatorGetItem, getItem);
  *                  '403':
  *                      description: Error por validacion
  */
- router.post("/", authMiddleware, validatorCreateItem, createItem);
- /**
+router.post("/", authMiddleware, validatorCreateItem, createItem);
+/**
   * Upadte task
   * @swagger
   * /tasks/{id}:
@@ -112,6 +112,11 @@ router.get("/:id", authMiddleware, validatorGetItem, getItem);
   *        description: retorna el objeto insertado en la coleccion con stado '201'
   */
 router.put("/:id", authMiddleware, validatorGetItem, validatorCreateItem, updateItem);
+
+
+router.put("/toggle/:id", authMiddleware, validatorGetItem, toggleStatus);
+
+
 /**
  * Delete tasks
  * @swagger

@@ -36,8 +36,14 @@ const createItem = async (req, res) => {
 };
 const updateItem = async (req, res) => {
     try{
+        if(req.body.status){
+            var status = req.body.status;
+        }
         req = matchedData(req);
         const {id, ...body} = req;
+        if(status){
+            body.status = status;
+        }
         const data = await tasksModel.findByIdAndUpdate(id, body, {new:true});
         res.send({data})
     } catch(e){
@@ -55,4 +61,15 @@ const deleteItem = async (req, res) => {
     }
 };
 
-module.exports = {getItems,getItem,createItem,updateItem,deleteItem};
+const toggleStatus = async (req, res) => {
+    try{
+        req = matchedData(req);
+        const {id} = req;
+        const data = await tasksModel.findByIdAndUpdate(id, {status: "finished"}, {new:true});
+        res.send({data})
+    } catch(e){
+        handleHttpError(res, "ERROR_TOGGLE_STATUS")
+    }
+}
+
+module.exports = {getItems,getItem,createItem,updateItem,deleteItem, toggleStatus};
