@@ -2,4 +2,4 @@
 
 ## Desarrollado en Node con Express y Mongoose
 
-### Actualmente en desarrollo, el resultado final tendra tambien el frontend
+### Front with vanilla javascript on this repo https://github.com/santicordoba/front-todolist-vanilla
